@@ -1,10 +1,7 @@
 <template>
   <div class="chess-overlord mb-10 grid grid-cols-8 grid-rows-8 gap-1">
     <template v-for="(square, index) in squares" v-bind:key="index">
-      <div class="square" :class="square.color">
-        {{ square.position }}
-        <span :class="square.starting_piece"></span>
-      </div>
+      <Cell :square="square"></Cell>
     </template>
   </div>
 </template>
@@ -17,7 +14,7 @@ export default {
   },
 
   methods: {
-    getSquares() {
+    setGame() {
       var row_index = 0;
       var row_count = 8;
       const array_letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -37,7 +34,7 @@ export default {
         }
 
         // check if maintains starting piece
-        if (i <= 15 || i >= 56) {
+        if (i <= 15 || i >= 48) {
           if (row_count == 1 || row_count == 8) {
             if (row_index == 0 || row_index == 7) starting_piece = "r";
             if (row_index == 1 || row_index == 6) starting_piece = "n";
@@ -53,7 +50,7 @@ export default {
           index: i,
           position: array_letters[row_index] + row_count,
           color: color,
-          starting_piece: starting_piece,
+          current_piece: starting_piece,
         });
 
         // counter from 1 - 8 each row
@@ -70,42 +67,18 @@ export default {
     },
   },
   mounted() {
-    this.getSquares();
+    this.setGame();
   },
 };
 </script>
 <style>
 @import url("~/assets/css/main.css");
 .chess-overlord {
+  position: relative;
+
   height: 100dvh;
   max-height: calc(100dvh - 160px);
-  width: auto;
-  aspect-ratio: 1 / 1;
-}
-.square {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-.square.light {
-  background-color: var(--light-square);
-}
-.square.dark {
-  background-color: var(--dark-square);
-}
 
-/* images */
-span .r {
-}
-span .n {
-}
-span .b {
-}
-span .q {
-}
-span .k {
-}
-span .pawn {
+  aspect-ratio: 1 / 1;
 }
 </style>

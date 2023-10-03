@@ -1,6 +1,8 @@
 <template>
   <div class="hero-container flex justify-center pt-10">
-    <ChessBoard></ChessBoard>
+    <Game>
+      <ChessBoard></ChessBoard>
+    </Game>
   </div>
 </template>
 <script>
